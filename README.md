@@ -2,6 +2,37 @@
 
 **Explore a family tree while keeping its evidence close.** ForeLoom is a local-first genealogy research prototype for people working from a GEDCOM export. It imports the export into a separate SQLite tree, shows relationships and places, flags records for review, and keeps source facts alongside review decisions. It is a portfolio code example, not a launched or validated product.
 
+## Project and thesis
+
+Family research often starts with an inherited or exported tree whose facts are incomplete, approximate, or contradictory. A date may be recorded as “about 1880”; two sources may name different birthplaces; an apparent duplicate may be a different person. The initial hypothesis was that a private desktop workspace could turn these ambiguities into reviewable decisions: import the tree, flag possible problems, show the underlying evidence, and let the researcher decide whether to act.
+
+The product constraint was **local control**. Trees, imported media, review decisions, and backups live on the user's computer. External research happens only after the user starts a search; optional AI runs through a local Ollama instance and cannot edit the tree. Deterministic rules generate the issue queue, so the same saved facts produce the same review prompts without relying on a model.
+
+I designed and built the prototype as a solo project. The intended user was a family researcher maintaining a private tree, not an organization buying an archive platform. The app tests an evidence-led workflow; it does not establish genealogical truth.
+
+## What the prototype demonstrates
+
+The [fictional GEDCOM](docs/screenshots/demo.ged) contains two conflicting birthplace entries for one invented person. ForeLoom previews and imports it into a new tree, flags the variation, displays both source facts, records a chosen review outcome, and can undo that decision. The screenshots below show this sequence. Choosing a display place does not delete the other entry or prove which source is correct.
+
+This flow shaped the implementation: uncertain date text is retained instead of silently made exact; issue detection is rule-based; import keeps the original export intact; and review changes have a local history with undo. These are implementation choices visible in the code and demo, not measured improvements in researcher accuracy or speed.
+
+## Why the paid product plan was stopped
+
+The original commercial idea was a paid cleanup and AI research assistant for imported family trees. A source-based market review weakened that position. [RootsMagic documents problem searches and research tasks](https://help.rootsmagic.com/RM12/problem-search.html); [Gramps documents detailed source and citation management](https://www.gramps-project.org/wiki/index.php/Features); [FamilySearch offers AI-assisted full-text record search](https://www.familysearch.org/en/help/helpcenter/article/how-do-i-use-fulltext-search); and [MyHeritage describes GAIA as searching records, comparing evidence, and suggesting next steps](https://blog.myheritage.com/2026/11/introducing-gaia-myheritages-groundbreaking-genealogy-ai-agent/). These are published capabilities, not a hands-on comparison of quality. They made “cleanup plus AI” too broad a claim to justify a paid roadmap without evidence of a distinct job and buyer.
+
+The export workflow also limited a proposed Ancestry use case. [Ancestry says GEDCOM files omit media and an upload creates a new tree rather than merging changes into the original](https://help.ancestry.com/hc/en-us/articles/53933314587411-Moving-Trees-Between-Accounts). That made a simple “clean your Ancestry tree and send it back” promise unreliable.
+
+I withdrew the proposed Pro pricing, checkout, and launch work. **ForeLoom remains a noncommercial, open-source prototype; the commercial direction was stopped, not the codebase.** A possible narrower record-location task remains a research hypothesis. Before reviving a paid product, I would require a specific recurring task, a complete comparison with existing workflows, lawful access to the needed records, and a small demonstration with observable paid intent. None of that demand has been validated.
+
+### Claims and evidence
+
+| Statement | Evidence level |
+| --- | --- |
+| Import, review, decision, and undo work for the included fictional tree | Demonstrated in this prototype and the screenshots below |
+| Rules, local storage, and reversible review are implemented | Source code and automated tests; not a large-tree or cross-platform benchmark |
+| Existing tools cover parts of the proposed paid position | Vendor documentation and product claims; not hands-on competitive testing |
+| A narrower record-location product might be viable | Untested hypothesis; no customer or revenue evidence |
+
 ## Major features
 
 - **Local family trees:** create separate SQLite trees; edit people, relationships, uncertain dates, name variants, notes, sources, citations, and media.
