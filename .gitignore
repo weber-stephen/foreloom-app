@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env.local
+.env
+.env.*
+!.env.example
+*.kinfolk.zip
+build/
+src-tauri/target/
+src-tauri/gen/
+.DS_Store
+src-tauri/resources/gazetteer.sqlite
+tsconfig.app.tsbuildinfo

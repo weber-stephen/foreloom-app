@@ -1,0 +1,22 @@
+0 HEAD
+1 SOUR ForeLoom case study fixture
+1 GEDC
+2 VERS 5.5.1
+1 CHAR UTF-8
+0 @S1@ SOUR
+1 TITL Parish register transcription, fictional
+0 @S2@ SOUR
+1 TITL Census household entry, fictional
+0 @I1@ INDI
+1 NAME Mara /Vale/
+1 BIRT
+2 DATE ABT 1880
+2 PLAC Eastford, Devon, England
+2 SOUR @S1@
+1 BIRT
+2 DATE 1881
+2 PLAC Westford, Devon, England
+2 SOUR @S2@
+1 DEAT
+2 DATE 1945
+0 TRLR

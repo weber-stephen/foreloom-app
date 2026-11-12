@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ForeLoom",
+  "version": "0.1.0",
+  "identifier": "io.stephenweber.kinfolk",
+  "build": { "beforeDevCommand": "npm run dev", "devUrl": "http://127.0.0.1:1420", "beforeBuildCommand": "npm run build", "frontendDist": "../dist" },
+  "app": { "windows": [{ "title": "ForeLoom", "width": 1360, "height": 900, "minWidth": 900, "minHeight": 640 }], "security": { "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost data:; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self' ipc: http://ipc.localhost" } },
+  "bundle": { "active": true, "targets": "all", "resources": ["resources/gazetteer.sqlite"] }
+}
