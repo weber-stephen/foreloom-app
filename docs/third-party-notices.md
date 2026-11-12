@@ -7,6 +7,4 @@ The root MIT license covers ForeLoom app code. The project owner created the For
 | GeoNames place data | `src-tauri/resources/gazetteer.sqlite.gz` | [GeoNames](https://www.geonames.org/) country, administrative area, and cities500 data, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); transformed by `scripts/build_gazetteer.py` and expanded for desktop builds by `scripts/prepare_gazetteer.py` |
 | Country and regional boundaries, world map | `public/maps/` | [Natural Earth 1:10m cultural vectors](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/), [public domain](https://www.naturalearthdata.com/about/terms-of-use/) |
 | Cormorant Garamond and Source Sans 3 fonts | `src/assets/fonts/` | SIL Open Font License 1.1; full notices in the same directory |
-| Heroicons and Material Symbols fallback icons | `src/assets/` | [Heroicons MIT](https://github.com/tailwindlabs/heroicons/blob/master/LICENSE) and [Material Symbols Apache 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE); see `src/assets/HEROICONS_LICENSE.md` |
-
-Before distributing the icon files, include the upstream MIT and Apache 2.0 license texts with their notices. The current icon notice names the licenses but does not include their full texts.
+| Heroicons and Material Symbols fallback icons | `src/assets/` | Heroicons MIT and Material Symbols Apache 2.0; see the [icon notice](../src/assets/HEROICONS_LICENSE.md) and bundled license texts |
