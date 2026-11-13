@@ -63,7 +63,9 @@ These show a [fictional GEDCOM](docs/screenshots/demo.ged) with one person and t
 
 ## Run the desktop app
 
-Install Node.js 22, Python 3, [Rust through rustup](https://rustup.rs/), and the [Tauri 2 prerequisites](https://v2.tauri.app/start/prerequisites/) for your OS. Put rustup's `cargo` and `rustc` ahead of system or Homebrew versions on `PATH` (normally `~/.cargo/bin`). The pinned Rust version is in `rust-toolchain.toml`.
+Download the latest build from [GitHub Releases](https://github.com/weber-stephen/foreloom-app/releases/latest). Choose the Apple Silicon or Intel `.dmg` for your Mac, or the Windows `.exe` installer. These prototype builds have no developer certificate or notarization. macOS may require approval in **Privacy & Security**; Windows may show a SmartScreen warning.
+
+To run from source instead, install Node.js 22, Python 3, [Rust through rustup](https://rustup.rs/), and the [Tauri 2 prerequisites](https://v2.tauri.app/start/prerequisites/) for your OS. Put rustup's `cargo` and `rustc` ahead of system or Homebrew versions on `PATH` (normally `~/.cargo/bin`). The pinned Rust version is in `rust-toolchain.toml`.
 
 ```sh
 npm ci
@@ -98,6 +100,8 @@ cd src-tauri && cargo test --locked
 ```
 
 The frontend build includes TypeScript checking. Before a desktop bundle, run `python3 scripts/prepare_gazetteer.py` and then `npm run tauri build`. If Cargo reports that it cannot read lockfile version 4, check `which cargo` and put rustup first on `PATH`. If the place index is missing, rerun the preparation script. The prototype has been exercised on macOS. The limits below describe what these checks do not establish.
+
+To publish desktop builds, update the matching versions in `package.json`, `src-tauri/tauri.conf.json`, and `src-tauri/Cargo.toml`, then push a `v<version>` tag (for example, `v0.1.0`). The [release workflow](.github/workflows/release.yml) builds Apple Silicon and Intel macOS DMGs and a Windows installer, uploads them to a draft GitHub Release, and publishes it after all builds succeed.
 
 ## Prototype limits
 
