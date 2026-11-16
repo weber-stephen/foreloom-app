@@ -43,6 +43,12 @@ I withdrew the proposed Pro pricing, checkout, and launch work. **ForeLoom remai
 - **Portable backup:** export a tree to ZIP and restore it as a separate tree.
 - **Optional local AI:** use [Ollama](https://ollama.com/) for explanations and suggestions. Core editing and issue checks work without it; AI does not directly edit a tree.
 
+## Expanded demo tree
+
+Import the [expanded fictional GEDCOM](docs/demo-expanded.ged) in the desktop app for a larger walkthrough: 25 people, seven families, 39 imported relationships, three fictional sources, four generations, and places across England, Wales, and the United States. The original [small screenshot fixture](docs/screenshots/demo.ged) remains available for reproducing the screenshots.
+
+The expanded file deliberately includes a death year keyed as **1868 instead of 1968** for Jonah Vale, two recorded birthplaces for Mara Vale, a duplicate Ruth Marsh record, an impossible parent age for Ada Vale and Helen Vale, and one unlinked person. The source note attached to Jonah's death records the intended year, so **Review** can flag the chronology error and local AI can propose a fact edit using that evidence. Start Ollama and select a model in **Settings** to see AI suggestions. Review and apply each proposed change in the UI; AI never applies changes automatically. The duplicate merge also requires confirmation, while birthplace and relationship issues need a person to assess the evidence.
+
 ## Screenshots
 
 These show a [fictional GEDCOM](docs/screenshots/demo.ged) with one person and two conflicting birthplace entries. The screenshots demonstrate a review decision, not a verified historical conclusion.

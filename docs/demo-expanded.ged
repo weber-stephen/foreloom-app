@@ -1,0 +1,285 @@
+0 HEAD
+1 SOUR ForeLoom fictional extended demo
+1 GEDC
+2 VERS 5.5.1
+1 CHAR UTF-8
+0 @S1@ SOUR
+1 TITL Vale family register, fictional
+0 @S2@ SOUR
+1 TITL Marsh and Cole household cards, fictional
+0 @S3@ SOUR
+1 TITL Later transcript with deliberate transcription errors, fictional
+0 @N1@ NOTE All people and sources in this file are invented for a ForeLoom demo.
+0 @I1@ INDI
+1 NAME Elias /Vale/
+1 SEX M
+1 BIRT
+2 DATE 1848
+2 PLAC Exeter, Devon, England
+2 SOUR @S1@
+1 DEAT
+2 DATE 1919
+2 PLAC Exeter, Devon, England
+0 @I2@ INDI
+1 NAME Clara /Reed/
+1 SEX F
+1 BIRT
+2 DATE 1852
+2 PLAC Plymouth, Devon, England
+2 SOUR @S1@
+1 DEAT
+2 DATE 1930
+2 PLAC Exeter, Devon, England
+0 @I3@ INDI
+1 NAME Mara /Vale/
+1 SEX F
+1 BIRT
+2 DATE ABT 1880
+2 PLAC Exeter, Devon, England
+2 SOUR @S1@
+1 BIRT
+2 DATE 1881
+2 PLAC Plymouth, Devon, England
+2 SOUR @S3@
+1 OCCU Weaver
+2 DATE 1901
+2 PLAC Exeter, Devon, England
+1 RESI
+2 DATE 1911
+2 PLAC Bristol, England
+1 DEAT
+2 DATE 1951
+2 PLAC Bristol, England
+0 @I4@ INDI
+1 NAME Jonah /Vale/
+1 SEX M
+1 BIRT
+2 DATE 1878
+2 PLAC Exeter, Devon, England
+2 SOUR @S1@
+1 DEAT
+2 DATE 1868
+2 PLAC Bristol, England
+2 SOUR @S3@
+2 NOTE Transcription error: the fictional source reads 1968, but 1868 was keyed here.
+0 @I5@ INDI
+1 NAME Ada /Vale/
+1 SEX F
+1 BIRT
+2 DATE 1884
+2 PLAC Exeter, Devon, England
+1 IMMI
+2 DATE 1908
+2 PLAC Boston, Massachusetts, United States
+1 OCCU Printer
+2 DATE 1910
+2 PLAC Boston, Massachusetts, United States
+0 @I6@ INDI
+1 NAME Thomas /Marsh/
+1 SEX M
+1 BIRT
+2 DATE 1877
+2 PLAC Bath, Somerset, England
+1 OCCU Carpenter
+2 DATE 1901
+2 PLAC Bristol, England
+1 DEAT
+2 DATE 1942
+2 PLAC Bristol, England
+0 @I7@ INDI
+1 NAME Ruth /Marsh/
+1 SEX F
+1 BIRT
+2 DATE 1905
+2 PLAC Bristol, England
+2 SOUR @S2@
+1 RESI
+2 DATE 1930
+2 PLAC London, England
+0 @I8@ INDI
+1 NAME Samuel /Marsh/
+1 SEX M
+1 BIRT
+2 DATE 1908
+2 PLAC Bristol, England
+1 _MILT
+2 DATE 1942
+2 PLAC London, England
+0 @I9@ INDI
+1 NAME Ivy /Marsh/
+1 SEX F
+1 BIRT
+2 DATE 1912
+2 PLAC Bristol, England
+1 DEAT
+2 DATE 1988
+2 PLAC Cardiff, Wales
+0 @I10@ INDI
+1 NAME Peter /Cole/
+1 SEX M
+1 BIRT
+2 DATE 1903
+2 PLAC London, England
+1 OCCU Teacher
+2 DATE 1930
+2 PLAC London, England
+0 @I11@ INDI
+1 NAME Nora /Cole/
+1 SEX F
+1 BIRT
+2 DATE 1930
+2 PLAC London, England
+1 RESI
+2 DATE 1960
+2 PLAC Cardiff, Wales
+0 @I12@ INDI
+1 NAME Felix /Cole/
+1 SEX M
+1 BIRT
+2 DATE 1934
+2 PLAC London, England
+0 @I13@ INDI
+1 NAME Beatrice /Stone/
+1 SEX F
+1 BIRT
+2 DATE 1909
+2 PLAC Cardiff, Wales
+0 @I14@ INDI
+1 NAME Arthur /Marsh/
+1 SEX M
+1 BIRT
+2 DATE 1936
+2 PLAC London, England
+0 @I15@ INDI
+1 NAME June /Marsh/
+1 SEX F
+1 BIRT
+2 DATE 1940
+2 PLAC London, England
+0 @I16@ INDI
+1 NAME Daniel /Pike/
+1 SEX M
+1 BIRT
+2 DATE 1879
+2 PLAC Plymouth, Devon, England
+0 @I17@ INDI
+1 NAME Lucy /Vale/
+1 SEX F
+1 BIRT
+2 DATE 1882
+2 PLAC Exeter, Devon, England
+0 @I18@ INDI
+1 NAME Edith /Pike/
+1 SEX F
+1 BIRT
+2 DATE 1910
+2 PLAC Plymouth, Devon, England
+0 @I19@ INDI
+1 NAME Owen /Pike/
+1 SEX M
+1 BIRT
+2 DATE 1915
+2 PLAC Plymouth, Devon, England
+0 @I20@ INDI
+1 NAME Grace /Bell/
+1 SEX F
+1 BIRT
+2 DATE 1917
+2 PLAC Cardiff, Wales
+0 @I21@ INDI
+1 NAME Lila /Pike/
+1 SEX F
+1 BIRT
+2 DATE 1943
+2 PLAC Cardiff, Wales
+0 @I22@ INDI
+1 NAME Ruth /Marsh/
+1 SEX F
+1 BIRT
+2 DATE 1905
+2 PLAC Bristol, England
+2 SOUR @S3@
+1 NOTE @N1@
+1 NOTE Duplicate transcription of Ruth Marsh at I7, included for merge review.
+0 @I23@ INDI
+1 NAME Helen /Vale/
+1 SEX F
+1 BIRT
+2 DATE 1890
+2 PLAC Boston, Massachusetts, United States
+2 SOUR @S3@
+1 NOTE Deliberately incorrect child link: Ada would be six years old at this birth.
+0 @I24@ INDI
+1 NAME Michael /Grant/
+1 SEX M
+1 BIRT
+2 DATE 1882
+2 PLAC Boston, Massachusetts, United States
+0 @I25@ INDI
+1 NAME Ellis /North/
+1 SEX M
+1 BIRT
+2 DATE 1920
+2 PLAC York, England
+1 NOTE Deliberately unlinked person for the disconnected-record review.
+0 @F1@ FAM
+1 HUSB @I1@
+1 WIFE @I2@
+1 CHIL @I3@
+1 CHIL @I4@
+1 CHIL @I5@
+1 CHIL @I17@
+1 MARR
+2 DATE 1875
+2 PLAC Exeter, Devon, England
+2 SOUR @S1@
+0 @F2@ FAM
+1 HUSB @I6@
+1 WIFE @I3@
+1 CHIL @I7@
+1 CHIL @I8@
+1 CHIL @I9@
+1 CHIL @I22@
+1 MARR
+2 DATE 1902
+2 PLAC Bristol, England
+2 SOUR @S2@
+0 @F3@ FAM
+1 HUSB @I10@
+1 WIFE @I7@
+1 CHIL @I11@
+1 CHIL @I12@
+1 MARR
+2 DATE 1928
+2 PLAC London, England
+0 @F4@ FAM
+1 HUSB @I8@
+1 WIFE @I13@
+1 CHIL @I14@
+1 CHIL @I15@
+1 MARR
+2 DATE 1933
+2 PLAC London, England
+0 @F5@ FAM
+1 HUSB @I16@
+1 WIFE @I17@
+1 CHIL @I18@
+1 CHIL @I19@
+1 MARR
+2 DATE 1907
+2 PLAC Plymouth, Devon, England
+0 @F6@ FAM
+1 HUSB @I19@
+1 WIFE @I20@
+1 CHIL @I21@
+1 MARR
+2 DATE 1941
+2 PLAC Cardiff, Wales
+0 @F7@ FAM
+1 HUSB @I24@
+1 WIFE @I5@
+1 CHIL @I23@
+1 MARR
+2 DATE 1909
+2 PLAC Boston, Massachusetts, United States
+0 TRLR
