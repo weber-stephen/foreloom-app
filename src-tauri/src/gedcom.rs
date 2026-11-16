@@ -1158,6 +1158,34 @@ mod tests {
     }
 
     #[test]
+    fn extended_demo_imports_and_surfaces_planted_review_items() {
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../docs/demo-expanded.ged");
+        let preview = preview(path).unwrap();
+        assert_eq!(preview.people_count, 25);
+        assert_eq!(preview.source_count, 3);
+        assert_eq!(preview.relationship_count, 39);
+        assert!(preview.warnings.is_empty(), "{:?}", preview.warnings);
+
+        let base = std::env::temp_dir().join(format!("foreloom-demo-test-{}", db::id()));
+        fs::create_dir_all(&base).unwrap();
+        let store = Store { base: base.clone() };
+        store.catalog().unwrap();
+        let tree_id = import(&store, path, "Expanded demo".into()).unwrap();
+        assert!(db::list_people(&store, &tree_id, None).unwrap().iter().any(|person| {
+            person.name == "Jonah Vale" && person.facts.iter().any(|fact| {
+                fact.kind == "death" && fact.date_text == "1868" && fact.detail.contains("1968")
+            })
+        }));
+        let issues = crate::issues::list_issues(&store, &tree_id).unwrap();
+        for kind in ["chronology", "birthplace", "duplicate", "connection", "unlinked"] {
+            assert!(issues.iter().any(|issue| issue.kind == kind), "missing {kind}");
+        }
+        assert!(issues.iter().any(|issue| issue.kind == "chronology" && issue.proposed_fact_id.is_some()));
+        assert!(issues.iter().any(|issue| issue.kind == "duplicate" && issue.merge_candidate.is_some()));
+        fs::remove_dir_all(base).unwrap();
+    }
+
+    #[test]
     fn common_gedcom_tags_import_without_false_unsupported_warnings() {
         let base = std::env::temp_dir().join(format!("kinfolk-gedcom-tags-{}", db::id()));
         fs::create_dir_all(&base).unwrap();
