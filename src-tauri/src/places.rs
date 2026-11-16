@@ -137,29 +137,36 @@ fn hierarchy(c: &Connection, place: &ResolvedPlace) -> AppResult<String> {
     }
     Ok(labels.join(", "))
 }
+fn matching_places(c: &Connection, raw: &str) -> AppResult<Vec<ResolvedPlace>> {
+    let components = raw.split(',').map(normalize).filter(|part| !part.is_empty()).collect::<Vec<_>>();
+    let Some(name) = components.first() else { return Ok(vec![]) };
+    let mut matches = named_places(c, name)?;
+    let weight = |level: &str| match level { "locality" => 4, "county" => 3, "region" => 2, "country" => 1, _ => 0 };
+    let highest = matches.iter().map(|place| weight(&place.level)).max().unwrap_or(0);
+    matches.retain(|place| weight(&place.level) == highest);
+    for place in &mut matches { place.hierarchy = hierarchy(c, place)?; }
+    let score = |place: &ResolvedPlace| {
+        let labels = place.hierarchy.split(", ").map(normalize).collect::<Vec<_>>();
+        components.iter().skip(1).filter(|part| labels.contains(part)).count()
+    };
+    let best = matches.iter().map(&score).max().unwrap_or(0);
+    if best > 0 { matches.retain(|place| score(place) == best); }
+    if matches.len() > 1 && matches.iter().any(|place| normalize(&place.name) == *name) {
+        matches.retain(|place| normalize(&place.name) == *name);
+    }
+    matches.sort_by(|a, b| a.id.cmp(&b.id));
+    matches.dedup_by(|a, b| a.id == b.id);
+    Ok(matches)
+}
 fn resolve(gazetteer: &Gazetteer, raw: &str, override_id: Option<&String>) -> AppResult<Option<ResolvedPlace>> {
     let c = gazetteer.connection()?;
     if let Some(id) = override_id {
         let canonical = if id.len() == 2 { format!("country:{id}") } else { id.clone() };
         if let Some(mut place) = place_by_id(&c, &canonical)? { place.hierarchy = hierarchy(&c, &place)?; return Ok(Some(place)); }
     }
-    let components = raw.split(',').map(normalize).filter(|part| !part.is_empty()).collect::<Vec<_>>();
-    if components.is_empty() { return Ok(None); }
-    let mut matches = Vec::new(); let mut contexts = HashSet::new();
-    for component in &components {
-        for place in named_places(&c, component)? {
-            if matches!(place.level.as_str(), "country" | "region" | "county") { contexts.insert(place.country_code.clone()); }
-            matches.push(place);
-        }
-    }
-    let weight = |level: &str| match level { "locality" => 4, "county" => 3, "region" => 2, "country" => 1, _ => 0 };
-    let highest = matches.iter().map(|place| weight(&place.level)).max().unwrap_or(0);
-    let mut candidates = matches.into_iter().filter(|place| weight(&place.level) == highest && (contexts.is_empty() || contexts.contains(&place.country_code))).collect::<Vec<_>>();
-    candidates.sort_by(|a,b| a.id.cmp(&b.id)); candidates.dedup_by(|a,b| a.id == b.id);
+    let mut candidates = matching_places(&c, raw)?;
     if candidates.len() != 1 { return Ok(None); }
-    let mut place = candidates.pop().expect("candidate length checked");
-    place.hierarchy = hierarchy(&c, &place)?;
-    Ok(Some(place))
+    Ok(candidates.pop())
 }
 fn candidate_from_place(c: &Connection, mut place: ResolvedPlace, source: &str, confidence: &str, rationale: &str) -> AppResult<PlaceCandidate> {
     place.hierarchy = hierarchy(c, &place)?;
@@ -168,13 +175,7 @@ fn candidate_from_place(c: &Connection, mut place: ResolvedPlace, source: &str, 
 }
 fn candidates(gazetteer: &Gazetteer, raw: &str) -> AppResult<Vec<PlaceCandidate>> {
     let c = gazetteer.connection()?;
-    let components = raw.split(',').map(normalize).filter(|part| !part.is_empty()).collect::<Vec<_>>();
-    let mut matches = Vec::new(); let mut contexts = HashSet::new();
-    for component in &components { for place in named_places(&c, component)? { if matches!(place.level.as_str(), "country" | "region" | "county") { contexts.insert(place.country_code.clone()); } matches.push(place); } }
-    let weight = |level: &str| match level { "locality" => 4, "county" => 3, "region" => 2, "country" => 1, _ => 0 };
-    let highest = matches.iter().map(|place| weight(&place.level)).max().unwrap_or(0);
-    matches.retain(|place| weight(&place.level) == highest && (contexts.is_empty() || contexts.contains(&place.country_code)));
-    matches.sort_by(|a,b| a.id.cmp(&b.id)); matches.dedup_by(|a,b| a.id == b.id);
+    let matches = matching_places(&c, raw)?;
     let confidence = if matches.len() == 1 { "high" } else { "medium" };
     let rationale = if matches.len() == 1 { "Exact offline gazetteer match" } else { "Multiple offline gazetteer matches need context" };
     matches.into_iter().map(|place| candidate_from_place(&c, place, "offline", confidence, rationale)).collect()
@@ -305,5 +306,20 @@ mod tests {
         assert!(matches_year_filter("about 1902",Some(1900),Some(1904)));
         assert!(!matches_year_filter("1899",Some(1900),Some(1904)));
         assert!(!matches_year_filter("unknown",Some(1900),None));
+    }
+    #[test] fn expanded_demo_places_map() {
+        let gazetteer = Gazetteer { path: PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("resources/gazetteer.sqlite") };
+        let base = std::env::temp_dir().join(format!("foreloom-places-demo-{}", crate::db::id()));
+        fs::create_dir_all(&base).unwrap();
+        let store = Store { base: base.clone() };
+        store.catalog().unwrap();
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../docs/demo-expanded.ged");
+        let tree_id = crate::gedcom::import(&store, path, "Places demo".into()).unwrap();
+        let result = map(&store, &gazetteer, &tree_id, PlaceMapFilter { event_kinds: vec![], location_query: String::new(), year_start: None, year_end: None, person_ids: vec![] }).unwrap();
+        assert_eq!(result.mapped_people_count, 25);
+        assert!(result.unresolved.is_empty());
+        assert!(result.places.iter().any(|place| place.name == "Exeter" && place.country_code == "GB"));
+        assert!(result.places.iter().any(|place| place.name == "Boston" && place.country_code == "US"));
+        fs::remove_dir_all(base).unwrap();
     }
 }
