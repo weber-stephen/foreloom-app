@@ -2,6 +2,16 @@
 
 **Explore a family tree while keeping its evidence close.** ForeLoom is a local-first genealogy research prototype for people working from a GEDCOM export. It imports the export into a separate SQLite tree, shows relationships and places, flags records for review, and keeps source facts alongside review decisions. It is a portfolio code example, not a launched or validated product.
 
+## Demo video
+
+A 56-second tour of the [expanded fictional demo tree](docs/demo-expanded.ged), including evidence review, optional local AI suggestions, the family map, and the interactive tree. AI suggestions require Ollama and remain subject to your review.
+
+
+
+https://github.com/user-attachments/assets/89476da9-2d36-4c05-8875-cc2e9c5f3aab
+
+
+
 ## Project and thesis
 
 Family research often starts with an inherited or exported tree whose facts are incomplete, approximate, or contradictory. A date may be recorded as “about 1880”; two sources may name different birthplaces; an apparent duplicate may be a different person. The initial hypothesis was that a private desktop workspace could turn these ambiguities into reviewable decisions: import the tree, flag possible problems, show the underlying evidence, and let the researcher decide whether to act.
