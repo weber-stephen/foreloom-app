@@ -6,11 +6,7 @@
 
 A 56-second tour of the [expanded fictional demo tree](docs/demo-expanded.ged), including evidence review, optional local AI suggestions, the family map, and the interactive tree. AI suggestions require Ollama and remain subject to your review.
 
-
-
 https://github.com/user-attachments/assets/89476da9-2d36-4c05-8875-cc2e9c5f3aab
-
-
 
 ## Project and thesis
 
